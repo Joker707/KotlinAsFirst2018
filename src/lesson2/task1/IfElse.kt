@@ -140,7 +140,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = when {
     else -> 2
 }
 
-
 /**
  * Средняя
  *
