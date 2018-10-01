@@ -1,4 +1,4 @@
-@file:Suppress("Федоров Сергей 13531/4")
+@file:Suppress("Федоров Сергей 13531/4 ")
 package lesson2.task1
 
 import lesson1.task1.discriminant
