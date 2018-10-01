@@ -1,7 +1,9 @@
-@file:Suppress("Федоров Сергей 13531/4 ")
+@file:Suppress("Федоров Сергей 13531/4")
 package lesson3.task1
 
-import kotlin.math.sqrt
+import java.lang.Math.max
+import java.lang.Math.sqrt
+import kotlin.math.*
 
 /**
  * Пример
@@ -207,7 +209,7 @@ fun collatzSteps(x: Int): Int {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double =
+fun sin(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя
@@ -216,7 +218,7 @@ fun sin(x: Double, eps: Double): Double =
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double =
+fun cos(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя

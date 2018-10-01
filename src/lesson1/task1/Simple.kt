@@ -1,4 +1,4 @@
-@file:Suppress("Федоров Сергей 13531/4 ")
+@file:Suppress("Федоров Сергей 13531/4")
 package lesson1.task1
 
 import kotlin.math.*

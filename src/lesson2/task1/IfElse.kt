@@ -1,7 +1,9 @@
-@file:Suppress("Федоров Сергей 13531/4 ")
+@file:Suppress("Федоров Сергей 13531/4")
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -78,12 +80,12 @@ fun ageDescription(age: Int): String = when {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    val S = v1 * t1 + v2 * t2 + v3 * t3
+    val s = v1 * t1 + v2 * t2 + v3 * t3
 
     return when {
-        v1 * t1 > S / 2 -> S / 2 / v1
-        v1 * t1 + v2 * t2 > S / 2 -> t1 + (S / 2 - v1 * t1) / v2
-        else -> t1 + t2 + (S / 2 - v1 * t1 - v2 * t2) / v3
+        v1 * t1 > s / 2 -> s / 2 / v1
+        v1 * t1 + v2 * t2 > s / 2 -> t1 + (s / 2 - v1 * t1) / v2
+        else -> t1 + t2 + (s / 2 - v1 * t1 - v2 * t2) / v3
     }
 }
 
