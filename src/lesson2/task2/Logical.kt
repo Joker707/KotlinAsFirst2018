@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("Федоров Сергей 13531/4")
 package lesson2.task2
 
 import lesson1.task1.sqr

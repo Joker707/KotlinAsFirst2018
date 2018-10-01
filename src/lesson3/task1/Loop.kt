@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("Федоров Сергей 13531/4")
 package lesson3.task1
 
 import kotlin.math.sqrt
