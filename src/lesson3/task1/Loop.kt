@@ -1,6 +1,7 @@
 @file:Suppress("Федоров Сергей 13531/4")
 package lesson3.task1
 
+import lesson4.task1.power
 import java.lang.Math.max
 import java.lang.Math.sqrt
 import kotlin.math.*
@@ -69,18 +70,13 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var a = n
-    var j = 0
-    if (a < 10) return 1
-    else {
-        for (i in 1..Int.MAX_VALUE) {
-            j = i
-            a /= 10
-            if (a < 10) j++
-            if (a < 10) break
-        }
+    var m = n
+    var k = 1
+    while (m >= 10) {
+        k ++
+        m /= 10
     }
-    return j
+    return k
 }
 
 /**
@@ -90,16 +86,14 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var a = 1
+    var a = 0
     var b = 1
-    var c = 1
-    if (n < 3) return 1
-    for (i in 3..n) {
-        c = a + b
-        a = b
+    for (i in 1 until n) {
+        val c = a
+        a += b
         b = c
     }
-    return c
+    return a + b
 }
 
 
@@ -110,13 +104,16 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var j = 0
-    for (i in max(m, n)..Int.MAX_VALUE) {
-        j = i
-        if (i % m == 0 && i % n == 0) break
-    }
-    return j
+    val max = max(m, n)
+    val min = min(m, n)
+    var a = max
+
+    while (a % min != 0)
+        a += max
+
+    return a
 }
+
 
 /**
  * Простая
@@ -125,9 +122,13 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var j = 0
-    for (i in 2..n) {
-        j =i
-        if (n % i == 0) break
+    if (isPrime(n)) {
+        return n
+    } else {
+        for (i in 2..sqrt(n.toDouble()).toInt()) {
+            j = i
+            if (n % i == 0) break
+        }
     }
     return j
 }
@@ -227,7 +228,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun stepen(n: Int, i: Int): Int { /* Дополнительная функция */
+fun pow(n: Int, i: Int): Int { /* Дополнительная функция */
     var m = 1
     for (j in 1..i) {
         m *= n
@@ -239,7 +240,7 @@ fun revert(n: Int): Int {
     var cba = 0
     var num = digitNumber(n)
     for (i in num downTo 1) {
-        cba += (m % 10) * stepen(10, (i - 1))
+        cba += (m % 10) * pow(10, (i - 1))
         m /= 10
     }
     return cba
@@ -258,7 +259,7 @@ fun isPalindrome(n: Int): Boolean {
     var num = digitNumber(n)
     var back = num
     for (i in 1..(num / 2 + 1)) {
-        if ((n / stepen(10, i - 1)) % 10 != (n / stepen(10, back - 1)) % 10)
+        if ((n / pow(10, i - 1)) % 10 != (n / pow(10, back - 1)) % 10)
             return false
         back--
     }
@@ -293,7 +294,30 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun powtodouble(n: Double, i: Double): Double {
+    var m = 1.0
+    if (i == 0.0) return 1.0
+    else {
+        for (j in 1..i.toInt()) {
+            m *= n
+        }
+        return m
+    }
+}
+
+fun digit(n: Int, i: Int): Int = n / powtodouble(10.0, i.toDouble()).toInt() % 10
+
+fun squareSequenceDigit(n: Int): Int {
+    var a = 0
+    var number = 1
+    var nn = 0
+    while (a < n) {
+        nn = number * number
+        a += digitNumber(nn)
+        number++
+    }
+    return digit(nn, a - n)
+}
 
 /**
  * Сложная
@@ -304,4 +328,17 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var reached = 0
+    var number = 0
+    var n1 = 0
+    var n2 = 1
+    while (reached < n) {
+        number = n1 + n2
+        reached += digitNumber(number)
+        val t = n1
+        n1 += n2
+        n2 = t
+    }
+    return digit(number, reached - n)
+}

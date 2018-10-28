@@ -5,6 +5,7 @@ import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -66,7 +67,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  */
 fun ageDescription(age: Int): String = when {
     age % 10 == 1 && age % 100 != 11 -> "$age год"
-    ((age % 10 == 2) || (age % 10 == 3) || (age % 10 == 4)) && (age % 100 != 12) && (age % 100 != 13) && (age % 100 != 14) -> "$age года"
+    (age % 10 in 2..4) && (age % 100 !in 12..14) -> "$age года"
     else -> "$age лет"
 }
 
@@ -81,11 +82,11 @@ fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
     val s = v1 * t1 + v2 * t2 + v3 * t3
-
+    val halfs = s / 2
     return when {
-        v1 * t1 > s / 2 -> s / 2 / v1
-        v1 * t1 + v2 * t2 > s / 2 -> t1 + (s / 2 - v1 * t1) / v2
-        else -> t1 + t2 + (s / 2 - v1 * t1 - v2 * t2) / v3
+        v1 * t1 > halfs -> halfs / v1
+        v1 * t1 + v2 * t2 > halfs -> t1 + (halfs - v1 * t1) / v2
+        else -> t1 + t2 + (halfs - v1 * t1 - v2 * t2) / v3
     }
 }
 
@@ -101,11 +102,11 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int = when {
-        kingX != rookX1 && kingY != rookY1 && kingX != rookX2 && kingY != rookY2 -> 0
-        kingX == rookX1 || kingY == rookY1 && kingX != rookX2 && kingY != rookY2 -> 1
-        kingX != rookX1 && kingY != rookY1 && kingX == rookX2 || kingY == rookY2 -> 2
-        else -> 3
-    }
+    kingX != rookX1 && kingY != rookY1 && kingX != rookX2 && kingY != rookY2 -> 0
+    (kingX == rookX1 || kingY == rookY1) && kingX != rookX2 && kingY != rookY2 -> 1
+    kingX != rookX1 && kingY != rookY1 && (kingX == rookX2 || kingY == rookY2) -> 2
+    else -> 3
+}
 
 
 /**
@@ -121,9 +122,12 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int = when {
-    kingX != rookX && kingY != rookY && kingX + kingY != bishopX + bishopY && abs(kingX - kingY) != abs(bishopX - bishopY) -> 0
-    kingX == rookX || kingY == rookY && kingX + kingY != bishopX + bishopY && abs(kingX - kingY) != abs(bishopX - bishopY) -> 1
-    kingX != rookX && kingY != rookY && kingX + kingY == bishopX + bishopY || abs(kingX - kingY) == abs(bishopX - bishopY) -> 2
+    kingX != rookX && kingY != rookY && kingX + kingY != bishopX + bishopY &&
+            abs(kingX - kingY) != abs(bishopX - bishopY) -> 0
+    (kingX == rookX || kingY == rookY) && kingX + kingY != bishopX + bishopY &&
+            abs(kingX - kingY) != abs(bishopX - bishopY) -> 1
+    kingX != rookX && kingY != rookY && (kingX + kingY == bishopX + bishopY ||
+            abs(kingX - kingY) == abs(bishopX - bishopY)) -> 2
     else -> 3
 }
 
@@ -150,10 +154,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = when {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
-    b >= c && b <= d && a <= c -> b - c
-    a >= c && a <= d && b >= d -> d - a
-    b >= c && b <= d && a >= c && a <= d -> b - a
-    c >= a && c <= b && d >= a && d <= b -> d - c
-    else -> -1
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    val x = max(a, c)
+    val y = min(b, d)
+    return max(y - x, -1)
 }
