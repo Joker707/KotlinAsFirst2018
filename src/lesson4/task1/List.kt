@@ -4,7 +4,6 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson3.task1.isPrime
-import lesson3.task1.stepen
 import kotlin.math.sqrt
 
 /**
@@ -186,7 +185,7 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun vstepen(n: Double, i: Int): Double { /* Дополнительная функция */
+fun power(n: Double, i: Int): Double { /* Дополнительная функция */
     var m = 1.0
     for (j in 1..i) {
         m *= n
@@ -197,7 +196,7 @@ fun polynom(p: List<Double>, x: Double): Double {
     var sum = 0.0
     if (p.size == 0) return sum
     for (i in 0 until p.size) {
-        sum += p[i] * vstepen(x, i)
+        sum += p[i] * power(x, i)
     }
     return sum
 }
@@ -667,9 +666,9 @@ fun russian(n: Int): String {
         (n1 % 10 == 9) && (n1 % 100 != 19) -> str1 += "девять "
     }
     if (n1 % 10 == 1) str1 += "тысяча "
-    if ((n1 % 10 == 2) || (n1 % 10 == 3) || (n1 % 10 == 4)) str1 += "тысячи "
+    if (n1 % 10 in 2..4) str1 += "тысячи "
     else {
-        if ((n1 > 0) && (n1 % 10 != 1) && (n1 % 10 != 2) && (n1 % 10 != 3) && (n1 % 10 != 4)) str1 += "тысяч "
+        if ((n1 > 0) && ((n1 % 10 !in 1..4) || (n1 % 100 in 10..19))) str1 += "тысяч "
     }
     when {
         n2 / 100 == 1 -> str2 += "сто "
