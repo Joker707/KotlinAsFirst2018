@@ -94,7 +94,16 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    var mapAB = (mapA + mapB).toMutableMap()
+    var list = listOf<String>()
+    list += mapAB.keys
+    for (key in list) {
+        if (mapAB.containsKey(key) == mapA.containsKey(key) && mapAB[key] != mapA[key])
+            mapAB[key] = mapA[key] + ", " + mapAB[key]
+    }
+    return mapAB
+}
 
 /**
  * Простая
@@ -118,7 +127,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.all { (key, value) -> b[key] == value }
 
 /**
  * Средняя
@@ -196,7 +205,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit = TO
  *
  * Для двух списков людей найти людей, встречающихся в обоих списках
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it in b }.toList()
 
 /**
  * Средняя

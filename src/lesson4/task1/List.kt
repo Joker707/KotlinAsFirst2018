@@ -119,7 +119,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
 fun abs(v: List<Double>): Double {
     var sum = 0.0
     if (v.size > 0) {
-        for (i in 0..v.size-1) {
+        for (i in 0..v.size - 1) {
             sum = sum + v[i] * v[i]
         }
     }
@@ -134,10 +134,10 @@ fun abs(v: List<Double>): Double {
 fun mean(list: List<Double>): Double {
     var sum = 0.0
     if (list.size == 0) return sum
-    for (i in 0..list.size-1) {
+    for (i in 0..list.size - 1) {
         sum = sum + list[i]
     }
-    return sum/list.size
+    return sum / list.size
 }
 
 /**
@@ -151,11 +151,11 @@ fun mean(list: List<Double>): Double {
 fun center(list: MutableList<Double>): MutableList<Double> {
     var sum = 0.0
     if (list.size == 0) return list
-    for (i in 0..list.size-1) {
+    for (i in 0..list.size - 1) {
         sum += list[i]
     }
     val srednee = sum / list.size
-    for (i in 0..list.size-1) {
+    for (i in 0..list.size - 1) {
         list[i] -= srednee
     }
     return list
@@ -171,7 +171,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
 fun times(a: List<Double>, b: List<Double>): Double {
     var c = 0.0
     if (a.size == 0) return c
-    for (i in 0..a.size-1) {
+    for (i in 0..a.size - 1) {
         c += a[i] * b[i]
     }
     return c
@@ -192,6 +192,7 @@ fun power(n: Double, i: Int): Double { /* Дополнительная функ�
     }
     return m
 }
+
 fun polynom(p: List<Double>, x: Double): Double {
     var sum = 0.0
     if (p.size == 0) return sum
@@ -214,7 +215,7 @@ fun polynom(p: List<Double>, x: Double): Double {
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     var sum = 0.0
     if (list.size == 0) return list
-    for (i in list.size-1 downTo 1) {
+    for (i in list.size - 1 downTo 1) {
         for (j in 0..i) {
             sum += list[j]
         }
@@ -286,6 +287,7 @@ fun convert(n: Int, base: Int): List<Int> {
     val a = mutableListOf<Int>()
     val b = mutableListOf<Int>()
     var m = n
+    if (m == 0) b.add(0)
     if (m == 1) {
         b.add(1)
     } else {
@@ -327,99 +329,79 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     var a = ""
-    var b = ""
     var m = n
-    if (m == 1) {
-        b += "1"
+    if (m < base) {
+        if (m > 9) when {
+            m == 10 -> a += "a"
+            m == 11 -> a += "b"
+            m == 12 -> a += "c"
+            m == 13 -> a += "d"
+            m == 14 -> a += "e"
+            m == 15 -> a += "f"
+            m == 16 -> a += "g"
+            m == 17 -> a += "h"
+            m == 18 -> a += "i"
+            m == 19 -> a += "j"
+            m == 20 -> a += "k"
+            m == 21 -> a += "l"
+            m == 22 -> a += "m"
+            m == 23 -> a += "n"
+            m == 24 -> a += "o"
+            m == 25 -> a += "p"
+            m == 26 -> a += "q"
+            m == 27 -> a += "r"
+            m == 28 -> a += "s"
+            m == 29 -> a += "t"
+            m == 30 -> a += "u"
+            m == 31 -> a += "v"
+            m == 32 -> a += "w"
+            m == 33 -> a += "x"
+            m == 34 -> a += "y"
+            m == 35 -> a += "z"
+        } else a += "$m"
     } else {
         while (m > 0) {
-            if (m >= base) {
-                if (m % base == 0) {
-                    m /= base
-                    a += "0"
-                } else {
-                    for (i in 1..base - 1) {
-                        if ((m - i) % base == 0) {
-                            if (i > 9) {
-                                when {
-                                    i == 10 -> a += "a"
-                                    i == 11 -> a += "b"
-                                    i == 12 -> a += "c"
-                                    i == 13 -> a += "d"
-                                    i == 14 -> a += "e"
-                                    i == 15 -> a += "f"
-                                    i == 16 -> a += "g"
-                                    i == 17 -> a += "h"
-                                    i == 18 -> a += "i"
-                                    i == 19 -> a += "j"
-                                    i == 20 -> a += "k"
-                                    i == 21 -> a += "l"
-                                    i == 22 -> a += "m"
-                                    i == 23 -> a += "n"
-                                    i == 24 -> a += "o"
-                                    i == 25 -> a += "p"
-                                    i == 26 -> a += "q"
-                                    i == 27 -> a += "r"
-                                    i == 28 -> a += "s"
-                                    i == 29 -> a += "t"
-                                    i == 30 -> a += "u"
-                                    i == 31 -> a += "v"
-                                    i == 32 -> a += "w"
-                                    i == 33 -> a += "x"
-                                    i == 34 -> a += "y"
-                                    i == 35 -> a += "z"
-                                }
-                            } else {
-                                a += "$i"
-                                m -= i
-                                break
-                            }
-                        }
-                    }
-                    m /= base
-                }
+            if (m % base == 0) {
+                m /= base
+                a += "0"
             } else {
-                if (m > 9) {
-                    when {
-                        m == 10 -> a += "a"
-                        m == 11 -> a += "b"
-                        m == 12 -> a += "c"
-                        m == 13 -> a += "d"
-                        m == 14 -> a += "e"
-                        m == 15 -> a += "f"
-                        m == 16 -> a += "g"
-                        m == 17 -> a += "h"
-                        m == 18 -> a += "i"
-                        m == 19 -> a += "j"
-                        m == 20 -> a += "k"
-                        m == 21 -> a += "l"
-                        m == 22 -> a += "m"
-                        m == 23 -> a += "n"
-                        m == 24 -> a += "o"
-                        m == 25 -> a += "p"
-                        m == 26 -> a += "q"
-                        m == 27 -> a += "r"
-                        m == 28 -> a += "s"
-                        m == 29 -> a += "t"
-                        m == 30 -> a += "u"
-                        m == 31 -> a += "v"
-                        m == 32 -> a += "w"
-                        m == 33 -> a += "x"
-                        m == 34 -> a += "y"
-                        m == 35 -> a += "z"
+                when {
+                    m % base == 10 -> a += "a"
+                    m % base == 11 -> a += "b"
+                    m % base == 12 -> a += "c"
+                    m % base == 13 -> a += "d"
+                    m % base == 14 -> a += "e"
+                    m % base == 15 -> a += "f"
+                    m % base == 16 -> a += "g"
+                    m % base == 17 -> a += "h"
+                    m % base == 18 -> a += "i"
+                    m % base == 19 -> a += "j"
+                    m % base == 20 -> a += "k"
+                    m % base == 21 -> a += "l"
+                    m % base == 22 -> a += "m"
+                    m % base == 23 -> a += "n"
+                    m % base == 24 -> a += "o"
+                    m % base == 25 -> a += "p"
+                    m % base == 26 -> a += "q"
+                    m % base == 27 -> a += "r"
+                    m % base == 28 -> a += "s"
+                    m % base == 29 -> a += "t"
+                    m % base == 30 -> a += "u"
+                    m % base == 31 -> a += "v"
+                    m % base == 32 -> a += "w"
+                    m % base == 33 -> a += "x"
+                    m % base == 34 -> a += "y"
+                    m % base == 35 -> a += "z"
+                    else -> {
+                        var i = m % base
+                        a += "$i"
                     }
-                } else {
-                    a += "$m"
                 }
-                break
+                m /= base
             }
-
         }
     }
-    for (char in a) {
-        b += char
-    }
-    return b.reversed()
+    return a.reversed()
 }
 
 /**
@@ -434,11 +416,11 @@ fun decimal(digits: List<Int>, base: Int): Int {
     if (digits.size < 2) {
         result = digits[0]
     } else {
-        for (i in 0 until digits.size) {
+        for (i in 0 until digits.size-1) {
             result += digits[i]
             result *= base
         }
-        result /= base
+        result += digits[digits.size-1]
     }
     return result
 }
@@ -493,7 +475,7 @@ fun decimalFromString(str: String, base: Int): Int {
             a = ""
             b = 0
         }
-        a += str[str.length-1]
+        a += str[str.length - 1]
         when {
             a == "a" -> b = 10
             a == "b" -> b = 11
