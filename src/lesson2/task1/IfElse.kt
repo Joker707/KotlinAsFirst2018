@@ -22,6 +22,7 @@ fun quadraticRootNumber(a: Double, b: Double, c: Double): Int {
     }
 }
 
+
 /**
  * Пример
  *

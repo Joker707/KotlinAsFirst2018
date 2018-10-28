@@ -1,7 +1,6 @@
 @file:Suppress("Федоров Сергей 13531/4")
 package lesson3.task1
 
-import lesson4.task1.power
 import java.lang.Math.max
 import java.lang.Math.sqrt
 import kotlin.math.*
@@ -194,10 +193,10 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  */
 fun collatzSteps(x: Int): Int {
     var count = 0
-    var x = 0
-    while (x != 1) {
-        if (x % 2 == 0) x = x / 2
-        if (x % 2 != 0) x = x * 3 + 1
+    var n = x
+    while (n != 1) {
+        if (n % 2 == 0) n /= 2
+        if (n % 2 != 0) n = n * 3 + 1
         count ++
     }
     return count

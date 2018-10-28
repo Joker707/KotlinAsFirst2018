@@ -119,7 +119,6 @@ fun accountInThreeYears(initial: Int, percent: Int): Double =
         ((initial + initial * percent.toDouble() / 100) + (initial + initial * percent.toDouble() / 100)
                 * percent.toDouble() / 100) * percent.toDouble() / 100)
 
-
 /**
  * Простая
  *
