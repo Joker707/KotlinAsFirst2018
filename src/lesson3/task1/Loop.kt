@@ -1,6 +1,8 @@
 @file:Suppress("Федоров Сергей 13531/4")
+
 package lesson3.task1
 
+import lesson1.task1.sqr
 import java.lang.Math.max
 import java.lang.Math.sqrt
 import kotlin.math.*
@@ -40,7 +42,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -71,8 +73,8 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var m = n
     var k = 1
-    while (m >= 10) {
-        k ++
+    while (abs(m) >= 10) {
+        k++
         m /= 10
     }
     return k
@@ -137,13 +139,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var j = 1
-    for (i in 1..n) {
-        if (n % i == 0 && i < n) j = i
-    }
-    return j
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
@@ -167,13 +163,11 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for (i in m..n) {
-        if (ceil(sqrt(i.toDouble())) == floor(sqrt(i.toDouble())))
-            return true
-    }
-    return false
-}
+fun squareBetweenExists(m: Int, n: Int): Boolean =
+        (sqr(sqrt(m.toDouble()).toInt()) == m) ||
+                (sqr(sqrt(n.toDouble()).toInt()) == n) ||
+                (sqrt(m.toDouble())).toInt() != (sqrt(n.toDouble())).toInt()
+
 
 /**
  * Средняя
@@ -196,8 +190,8 @@ fun collatzSteps(x: Int): Int {
     var n = x
     while (n != 1) {
         if (n % 2 == 0) n /= 2
-        if (n % 2 != 0) n = n * 3 + 1
-        count ++
+        else n = n * 3 + 1
+        count++
     }
     return count
 }
@@ -234,10 +228,11 @@ fun pow(n: Int, i: Int): Int { /* Дополнительная функция */
     }
     return m
 }
+
 fun revert(n: Int): Int {
     var m = n
     var cba = 0
-    var num = digitNumber(n)
+    val num = digitNumber(n)
     for (i in num downTo 1) {
         cba += (m % 10) * pow(10, (i - 1))
         m /= 10
@@ -254,16 +249,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    var num = digitNumber(n)
-    var back = num
-    for (i in 1..(num / 2 + 1)) {
-        if ((n / pow(10, i - 1)) % 10 != (n / pow(10, back - 1)) % 10)
-            return false
-        back--
-    }
-    return true
-}
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя
@@ -274,7 +260,7 @@ fun isPalindrome(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var a = n % 10
+    val a = n % 10
     var b = n
     for (i in 1..digitNumber(n)) {
         if (b % 10 != a)
@@ -295,12 +281,12 @@ fun hasDifferentDigits(n: Int): Boolean {
  */
 fun powtodouble(n: Double, i: Double): Double {
     var m = 1.0
-    if (i == 0.0) return 1.0
+    return if (i == 0.0) 1.0
     else {
         for (j in 1..i.toInt()) {
             m *= n
         }
-        return m
+        m
     }
 }
 

@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import lesson8.task1.findNearestCirclePair
+
 /**
  * Пример
  *
@@ -205,7 +207,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit = TO
  *
  * Для двух списков людей найти людей, встречающихся в обоих списках
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it in b }.toList()
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it in b }
 
 /**
  * Средняя
@@ -216,7 +218,13 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    var list = listOf<Char>()
+    for (i in 0 until word.length) {
+        list += word[i]
+    }
+    return list.all { it in chars }
+}
 
 /**
  * Средняя
@@ -230,7 +238,13 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    var k = 1
+    for (i in 0 until list.size) {
+
+    }
+    return mapOf()
+}
 
 /**
  * Средняя
