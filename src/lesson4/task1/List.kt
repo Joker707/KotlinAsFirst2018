@@ -355,7 +355,7 @@ fun convertToString(n: Int, base: Int): String {
                     m % base == 34 -> a += "y"
                     m % base == 35 -> a += "z"
                     else -> {
-                        var i = m % base
+                        val i = m % base
                         a += "$i"
                     }
                 }
@@ -609,8 +609,8 @@ fun russian(n: Int): String {
         (n1 % 10 == 8) && (n1 % 100 != 18) -> str1 += "восемь "
         (n1 % 10 == 9) && (n1 % 100 != 19) -> str1 += "девять "
     }
-    if (n1 % 10 == 1) str1 += "тысяча "
-    if (n1 % 10 in 2..4) str1 += "тысячи "
+    if ((n1 % 10 == 1) && (n1 % 100 !in 10..19)) str1 += "тысяча "
+    if ((n1 % 10 in 2..4) && (n1 % 100 !in 10..19)) str1 += "тысячи "
     else {
         if ((n1 > 0) && ((n1 % 10 !in 1..4) || (n1 % 100 in 10..19))) str1 += "тысяч "
     }
