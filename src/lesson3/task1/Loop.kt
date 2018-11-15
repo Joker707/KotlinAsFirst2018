@@ -71,9 +71,9 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var m = n
+    var m = abs(n)
     var k = 1
-    while (abs(m) >= 10) {
+    while (m >= 10) {
         k++
         m /= 10
     }
@@ -279,18 +279,8 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun powtodouble(n: Double, i: Double): Double {
-    var m = 1.0
-    return if (i == 0.0) 1.0
-    else {
-        for (j in 1..i.toInt()) {
-            m *= n
-        }
-        m
-    }
-}
 
-fun digit(n: Int, i: Int): Int = n / powtodouble(10.0, i.toDouble()).toInt() % 10
+fun digit(n: Int, i: Int): Int = n / pow(10.0.toInt(), i) % 10
 
 fun squareSequenceDigit(n: Int): Int {
     var a = 0
