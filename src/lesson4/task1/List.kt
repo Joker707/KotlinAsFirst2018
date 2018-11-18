@@ -3,7 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import lesson3.task1.isPrime
+import lesson3.task1.pow
 import kotlin.math.sqrt
 
 /**
@@ -126,10 +126,9 @@ fun abs(v: List<Double>): Double = sqrt(v.fold(0.0) { previousResult, element ->
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    if (list.isEmpty())
-        return 0.0
+    return if (list.isEmpty()) 0.0
     else
-        return list.sum() / list.size
+        list.sum() / list.size
 }
 
 /**
@@ -168,19 +167,11 @@ fun times(a: List<Double>, b: List<Double>): Double =
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun power(n: Double, i: Int): Double { /* Дополнительная функция */
-    var m = 1.0
-    for (j in 1..i) {
-        m *= n
-    }
-    return m
-}
 
 fun polynom(p: List<Double>, x: Double): Double {
     var sum = 0.0
-    if (p.size == 0) return sum
     for (i in 0 until p.size) {
-        sum += p[i] * power(x, i)
+        sum += p[i] * pow(x.toInt(), i)
     }
     return sum
 }
@@ -196,11 +187,8 @@ fun polynom(p: List<Double>, x: Double): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-    var sum = list.sum()
-    for (i in list.size - 1 downTo 0) {
-        val a = list[i]
-        list[i] = sum
-        sum -= a
+    for (i in 1 until list.size) {
+        list[i] += list[i - 1]
     }
     return list
 }
@@ -218,7 +206,7 @@ fun factorize(n: Int): List<Int> {
     val result = mutableListOf<Int>()
     while (a != 1) {
         for (i in 2..a) {
-            if ((isPrime(i)) && (a % i == 0)) {
+            if (a % i == 0) {
                 result.add(i)
                 m = i
                 break
@@ -247,27 +235,17 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
  */
 fun convert(n: Int, base: Int): List<Int> {
     val a = mutableListOf<Int>()
-    val b = mutableListOf<Int>()
     var m = n
-    if (m == 0) b.add(0)
+    if (m == 0) a.add(0)
     if (m == 1) {
-        b.add(1)
+        a.add(1)
     } else {
         while (m > 0) {
             if (m >= base) {
-                if (m % base == 0) {
-                    m /= base
-                    a.add(0)
-                } else {
-                    for (i in 1..base - 1) {
-                        if ((m - i) % base == 0) {
-                            a.add(i)
-                            m -= i
-                            break
-                        }
-                    }
-                    m /= base
-                }
+                val c = m % base
+                m -= c
+                a.add(c)
+                m /= base
             } else {
                 a.add(m)
                 break
@@ -275,10 +253,7 @@ fun convert(n: Int, base: Int): List<Int> {
 
         }
     }
-    for (i in a.size - 1 downTo 0) {
-        b.add(a[i])
-    }
-    return b
+    return a.reversed()
 }
 
 /**
@@ -290,80 +265,17 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    var a = ""
-    var m = n
-    if (m < base) {
-        if (m > 9) when {
-            m == 10 -> a += "a"
-            m == 11 -> a += "b"
-            m == 12 -> a += "c"
-            m == 13 -> a += "d"
-            m == 14 -> a += "e"
-            m == 15 -> a += "f"
-            m == 16 -> a += "g"
-            m == 17 -> a += "h"
-            m == 18 -> a += "i"
-            m == 19 -> a += "j"
-            m == 20 -> a += "k"
-            m == 21 -> a += "l"
-            m == 22 -> a += "m"
-            m == 23 -> a += "n"
-            m == 24 -> a += "o"
-            m == 25 -> a += "p"
-            m == 26 -> a += "q"
-            m == 27 -> a += "r"
-            m == 28 -> a += "s"
-            m == 29 -> a += "t"
-            m == 30 -> a += "u"
-            m == 31 -> a += "v"
-            m == 32 -> a += "w"
-            m == 33 -> a += "x"
-            m == 34 -> a += "y"
-            m == 35 -> a += "z"
-        } else a += "$m"
-    } else {
-        while (m > 0) {
-            if (m % base == 0) {
-                m /= base
-                a += "0"
-            } else {
-                when {
-                    m % base == 10 -> a += "a"
-                    m % base == 11 -> a += "b"
-                    m % base == 12 -> a += "c"
-                    m % base == 13 -> a += "d"
-                    m % base == 14 -> a += "e"
-                    m % base == 15 -> a += "f"
-                    m % base == 16 -> a += "g"
-                    m % base == 17 -> a += "h"
-                    m % base == 18 -> a += "i"
-                    m % base == 19 -> a += "j"
-                    m % base == 20 -> a += "k"
-                    m % base == 21 -> a += "l"
-                    m % base == 22 -> a += "m"
-                    m % base == 23 -> a += "n"
-                    m % base == 24 -> a += "o"
-                    m % base == 25 -> a += "p"
-                    m % base == 26 -> a += "q"
-                    m % base == 27 -> a += "r"
-                    m % base == 28 -> a += "s"
-                    m % base == 29 -> a += "t"
-                    m % base == 30 -> a += "u"
-                    m % base == 31 -> a += "v"
-                    m % base == 32 -> a += "w"
-                    m % base == 33 -> a += "x"
-                    m % base == 34 -> a += "y"
-                    m % base == 35 -> a += "z"
-                    else -> {
-                        val i = m % base
-                        a += "$i"
-                    }
-                }
-                m /= base
-            }
+    val list = convert(n, base)
+    val mutlist = mutableListOf<String>()
+    for (i in 0 until list.size) {
+        if (list[i] > 9) {
+            mutlist += (list[i] + 87).toChar().toString()
+        } else {
+            val a = list[i]
+            mutlist += "$a"
         }
     }
-    return a.reversed()
+    return mutlist.joinToString(separator = "")
 }
 
 /**
@@ -397,111 +309,15 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    var sum = 0
-    var a = ""
-    var b = 0
-    if (str.length > 1) {
-        for (i in 0 until str.length - 1) {
-            a += str[i]
-            when {
-                a == "a" -> b = 10
-                a == "b" -> b = 11
-                a == "c" -> b = 12
-                a == "d" -> b = 13
-                a == "e" -> b = 14
-                a == "f" -> b = 15
-                a == "g" -> b = 16
-                a == "h" -> b = 17
-                a == "i" -> b = 18
-                a == "j" -> b = 19
-                a == "k" -> b = 20
-                a == "l" -> b = 21
-                a == "m" -> b = 22
-                a == "n" -> b = 23
-                a == "o" -> b = 24
-                a == "p" -> b = 25
-                a == "q" -> b = 26
-                a == "r" -> b = 27
-                a == "s" -> b = 28
-                a == "t" -> b = 29
-                a == "u" -> b = 30
-                a == "v" -> b = 31
-                a == "w" -> b = 32
-                a == "x" -> b = 33
-                a == "y" -> b = 34
-                a == "z" -> b = 35
-                else -> b += a.toInt()
-            }
-            sum += b
-            sum *= base
-            a = ""
-            b = 0
+    val mutlist = mutableListOf<Int>()
+    for (i in 0 until str.length) {
+        if (str[i].toInt() - 48 in 0..9) {
+            mutlist += str[i].toInt() - 48
+        } else {
+            mutlist += str[i].toInt() - 87
         }
-        a += str[str.length - 1]
-        when {
-            a == "a" -> b = 10
-            a == "b" -> b = 11
-            a == "c" -> b = 12
-            a == "d" -> b = 13
-            a == "e" -> b = 14
-            a == "f" -> b = 15
-            a == "g" -> b = 16
-            a == "h" -> b = 17
-            a == "i" -> b = 18
-            a == "j" -> b = 19
-            a == "k" -> b = 20
-            a == "l" -> b = 21
-            a == "m" -> b = 22
-            a == "n" -> b = 23
-            a == "o" -> b = 24
-            a == "p" -> b = 25
-            a == "q" -> b = 26
-            a == "r" -> b = 27
-            a == "s" -> b = 28
-            a == "t" -> b = 29
-            a == "u" -> b = 30
-            a == "v" -> b = 31
-            a == "w" -> b = 32
-            a == "x" -> b = 33
-            a == "y" -> b = 34
-            a == "z" -> b = 35
-            else -> b += a.toInt()
-        }
-        sum += b
-    } else {
-        a += str
-        when {
-            a == "a" -> b = 10
-            a == "b" -> b = 11
-            a == "c" -> b = 12
-            a == "d" -> b = 13
-            a == "e" -> b = 14
-            a == "f" -> b = 15
-            a == "g" -> b = 16
-            a == "h" -> b = 17
-            a == "i" -> b = 18
-            a == "j" -> b = 19
-            a == "k" -> b = 20
-            a == "l" -> b = 21
-            a == "m" -> b = 22
-            a == "n" -> b = 23
-            a == "o" -> b = 24
-            a == "p" -> b = 25
-            a == "q" -> b = 26
-            a == "r" -> b = 27
-            a == "s" -> b = 28
-            a == "t" -> b = 29
-            a == "u" -> b = 30
-            a == "v" -> b = 31
-            a == "w" -> b = 32
-            a == "x" -> b = 33
-            a == "y" -> b = 34
-            a == "z" -> b = 35
-            else -> b += a.toInt()
-        }
-        sum += b
     }
-    return sum
+    return decimal(mutlist, base)
 }
 
 /**
@@ -514,43 +330,43 @@ fun decimalFromString(str: String, base: Int): Int {
  */
 fun roman(n: Int): String {
     var str = ""
-    when {
-        n / 1000 == 1 -> str += "M"
-        n / 1000 == 2 -> str += "MM"
-        n / 1000 == 3 -> str += "MMM"
+    when (n / 1000) {
+        1 -> str += "M"
+        2 -> str += "MM"
+        3 -> str += "MMM"
     }
-    when {
-        n / 100 % 10 == 1 -> str += "C"
-        n / 100 % 10 == 2 -> str += "CC"
-        n / 100 % 10 == 3 -> str += "CCC"
-        n / 100 % 10 == 4 -> str += "CD"
-        n / 100 % 10 == 5 -> str += "D"
-        n / 100 % 10 == 6 -> str += "DC"
-        n / 100 % 10 == 7 -> str += "DCC"
-        n / 100 % 10 == 8 -> str += "DCCC"
-        n / 100 % 10 == 9 -> str += "CM"
+    when (n / 100 % 10) {
+        1 -> str += "C"
+        2 -> str += "CC"
+        3 -> str += "CCC"
+        4 -> str += "CD"
+        5 -> str += "D"
+        6 -> str += "DC"
+        7 -> str += "DCC"
+        8 -> str += "DCCC"
+        9 -> str += "CM"
     }
-    when {
-        n / 10 % 10 == 1 -> str += "X"
-        n / 10 % 10 == 2 -> str += "XX"
-        n / 10 % 10 == 3 -> str += "XXX"
-        n / 10 % 10 == 4 -> str += "XL"
-        n / 10 % 10 == 5 -> str += "L"
-        n / 10 % 10 == 6 -> str += "LX"
-        n / 10 % 10 == 7 -> str += "LXX"
-        n / 10 % 10 == 8 -> str += "LXXX"
-        n / 10 % 10 == 9 -> str += "XC"
+    when (n / 10 % 10) {
+        1 -> str += "X"
+        2 -> str += "XX"
+        3 -> str += "XXX"
+        4 -> str += "XL"
+        5 -> str += "L"
+        6 -> str += "LX"
+        7 -> str += "LXX"
+        8 -> str += "LXXX"
+        9 -> str += "XC"
     }
-    when {
-        n % 10 == 1 -> str += "I"
-        n % 10 == 2 -> str += "II"
-        n % 10 == 3 -> str += "III"
-        n % 10 == 4 -> str += "IV"
-        n % 10 == 5 -> str += "V"
-        n % 10 == 6 -> str += "VI"
-        n % 10 == 7 -> str += "VII"
-        n % 10 == 8 -> str += "VIII"
-        n % 10 == 9 -> str += "IX"
+    when (n % 10) {
+        1 -> str += "I"
+        2 -> str += "II"
+        3 -> str += "III"
+        4 -> str += "IV"
+        5 -> str += "V"
+        6 -> str += "VI"
+        7 -> str += "VII"
+        8 -> str += "VIII"
+        9 -> str += "IX"
     }
     return str
 }
@@ -567,16 +383,16 @@ fun russian(n: Int): String {
     var str2 = ""
     val n1 = n / 1000
     val n2 = n % 1000
-    when {
-        n1 / 100 == 1 -> str1 += "сто "
-        n1 / 100 == 2 -> str1 += "двести "
-        n1 / 100 == 3 -> str1 += "триста "
-        n1 / 100 == 4 -> str1 += "четыреста "
-        n1 / 100 == 5 -> str1 += "пятьсот "
-        n1 / 100 == 6 -> str1 += "шестьсот "
-        n1 / 100 == 7 -> str1 += "семьсот "
-        n1 / 100 == 8 -> str1 += "восемьсот "
-        n1 / 100 == 9 -> str1 += "девятьсот "
+    when (n1 / 100) {
+        1 -> str1 += "сто "
+        2 -> str1 += "двести "
+        3 -> str1 += "триста "
+        4 -> str1 += "четыреста "
+        5 -> str1 += "пятьсот "
+        6 -> str1 += "шестьсот "
+        7 -> str1 += "семьсот "
+        8 -> str1 += "восемьсот "
+        9 -> str1 += "девятьсот "
     }
     when {
         n1 % 100 == 10 -> str1 += "десять "
@@ -614,16 +430,16 @@ fun russian(n: Int): String {
     else {
         if ((n1 > 0) && ((n1 % 10 !in 1..4) || (n1 % 100 in 10..19))) str1 += "тысяч "
     }
-    when {
-        n2 / 100 == 1 -> str2 += "сто "
-        n2 / 100 == 2 -> str2 += "двести "
-        n2 / 100 == 3 -> str2 += "триста "
-        n2 / 100 == 4 -> str2 += "четыреста "
-        n2 / 100 == 5 -> str2 += "пятьсот "
-        n2 / 100 == 6 -> str2 += "шестьсот "
-        n2 / 100 == 7 -> str2 += "семьсот "
-        n2 / 100 == 8 -> str2 += "восемьсот "
-        n2 / 100 == 9 -> str2 += "девятьсот "
+    when (n2 / 100) {
+        1 -> str2 += "сто "
+        2 -> str2 += "двести "
+        3 -> str2 += "триста "
+        4 -> str2 += "четыреста "
+        5 -> str2 += "пятьсот "
+        6 -> str2 += "шестьсот "
+        7 -> str2 += "семьсот "
+        8 -> str2 += "восемьсот "
+        9 -> str2 += "девятьсот "
     }
     when {
         n2 % 100 == 10 -> str2 += "десять "
