@@ -184,7 +184,13 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *          "Mikhail" to setOf("Sveta", "Marat")
  *        )
  */
-fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()/*{
+    fun rekurs( ): {
+        when {
+
+        }
+    }
+}*/
 
 /**
  * Простая
@@ -274,7 +280,18 @@ fun hasAnagrams(words: List<String>): Boolean = TODO()
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+/* К сожалению, на данный момент мне не хватает мозгов, чтобы придумать эффективное решение */
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    for (i in 0 until list.size) {
+        for (j in 0 until list.size) {
+            if ((list[i] + list[j] == number) && (i != j)) {
+                return Pair(i, j)
+            }
+
+        }
+    }
+    return Pair(-1, -1)
+}
 
 /**
  * Очень сложная
@@ -295,4 +312,24 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    var map = mapOf<String, Int>()
+    for ((key, value) in treasures) {
+        val cash = value.second / value.first
+        map += Pair(key, cash)
+    }
+    val list= map.toList().sortedByDescending { (key, value) -> value }
+    var set = setOf<String>()
+    var cap = capacity
+    for (i in list) {
+        for ((key, value) in treasures) {
+            if (i.first == key) {
+                while (cap - value.first >= 0) {
+                    cap -= value.first
+                    set += key
+                }
+            }
+        }
+    }
+    return set
+}
