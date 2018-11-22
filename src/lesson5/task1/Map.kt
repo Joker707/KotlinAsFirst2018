@@ -313,7 +313,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *   ) -> emptySet()
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
-    var map = mapOf<String, Double>()
+    var map = mapOf<String, Double>() 
     for ((key, value) in treasures) {
         val cash = value.second.toDouble() / value.first.toDouble()
         map += Pair(key, cash)
