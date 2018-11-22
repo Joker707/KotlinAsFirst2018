@@ -324,7 +324,7 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
     for (i in list) {
         for ((key, value) in treasures) {
             if (i.first == key) {
-                while (cap - value.first >= 0) {
+                if (cap - value.first >= 0) {
                     cap -= value.first
                     set += key
                 }
