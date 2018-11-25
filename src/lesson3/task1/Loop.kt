@@ -221,7 +221,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun pow(n: Int, i: Int): Int { /* Дополнительная функция */
+fun power(n: Int, i: Int): Int { /* Дополнительная функция */
     var m = 1
     for (j in 1..i) {
         m *= n
@@ -234,7 +234,7 @@ fun revert(n: Int): Int {
     var cba = 0
     val num = digitNumber(n)
     for (i in num downTo 1) {
-        cba += (m % 10) * pow(10, (i - 1))
+        cba += (m % 10) * power(10, (i - 1))
         m /= 10
     }
     return cba
@@ -280,7 +280,7 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 
-fun digit(n: Int, i: Int): Int = n / pow(10.0.toInt(), i) % 10
+fun digit(n: Int, i: Int): Int = n / power(10.0.toInt(), i) % 10
 
 fun squareSequenceDigit(n: Int): Int {
     var a = 0
