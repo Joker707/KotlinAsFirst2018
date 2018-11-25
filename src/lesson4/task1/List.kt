@@ -3,8 +3,9 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import lesson3.task1.pow
+import java.lang.Math.pow
 import kotlin.math.sqrt
+import kotlin.math.pow
 
 /**
  * Пример
@@ -125,11 +126,10 @@ fun abs(v: List<Double>): Double = sqrt(v.fold(0.0) { previousResult, element ->
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-    return if (list.isEmpty()) 0.0
-    else
-        list.sum() / list.size
-}
+fun mean(list: List<Double>): Double =
+        if (list.isEmpty()) 0.0
+        else
+            list.sum() / list.size
 
 /**
  * Средняя
@@ -171,10 +171,11 @@ fun times(a: List<Double>, b: List<Double>): Double =
 fun polynom(p: List<Double>, x: Double): Double {
     var sum = 0.0
     for (i in 0 until p.size) {
-        sum += p[i] * pow(x.toInt(), i)
+        sum += p[i] * pow(x, i.toDouble())
     }
     return sum
 }
+
 
 /**
  * Средняя
