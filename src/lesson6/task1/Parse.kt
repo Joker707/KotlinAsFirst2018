@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+
 /**
  * Пример
  *
@@ -49,12 +51,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -71,7 +71,32 @@ fun main(args: Array<String>) {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val parts = str.split(" ")
+    if (parts.size != 3) return ""
+    else {
+        val day = parts[0].toInt()
+        var month = 0
+        val year = parts[2].toInt()
+        when (parts[1]) {
+            "января" -> month += 1
+            "февраля" -> month += 2
+            "марта" -> month += 3
+            "апреля" -> month += 4
+            "мая" -> month += 5
+            "июня" -> month += 6
+            "июля" -> month += 7
+            "августа" -> month += 8
+            "сентября" -> month += 9
+            "октября" -> month += 10
+            "ноября" -> month += 11
+            "декабря" -> month += 12
+            else -> return ""
+        }
+        if (daysInMonth(month, year) < day) return ""
+        else return String.format("%02d.%02d.%02d", day, month, year)
+    }
+}
 
 /**
  * Средняя
@@ -143,7 +168,15 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val words = str.toLowerCase().split(" ")
+    var index = 0
+    for (i in 0 until words.size-1) {
+        if (words[i] == words[i + 1]) return index
+        else index += words[i].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная
