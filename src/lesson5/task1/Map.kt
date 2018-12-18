@@ -97,9 +97,8 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    var mapAB = (mapA + mapB).toMutableMap()
-    var list = listOf<String>()
-    list += mapAB.keys
+    val mapAB = (mapA + mapB).toMutableMap()
+    val list = mapAB.keys
     for (key in list) {
         if (mapAB.containsKey(key) == mapA.containsKey(key) && mapAB[key] != mapA[key])
             mapAB[key] = mapA[key] + ", " + mapAB[key]
@@ -184,13 +183,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *          "Mikhail" to setOf("Sveta", "Marat")
  *        )
  */
-fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()/*{
-    fun rekurs( ): {
-        when {
-
-        }
-    }
-}*/
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
 
 /**
  * Простая
@@ -213,7 +206,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit = TO
  *
  * Для двух списков людей найти людей, встречающихся в обоих списках
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it in b }
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it in b }.toSet().toList()
 
 /**
  * Средняя
@@ -225,10 +218,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    var list = listOf<Char>()
-    for (i in 0 until word.length) {
-        list += word[i]
-    }
+    val list = word.toList()
     return list.all { it in chars }
 }
 
@@ -244,13 +234,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> {
-    var k = 1
-    for (i in 0 until list.size) {
-
-    }
-    return mapOf()
-}
+fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
 
 /**
  * Средняя
