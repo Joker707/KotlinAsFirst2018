@@ -165,9 +165,12 @@ fun bestLongJump(jumps: String): Int {
  */
 fun bestHighJump(jumps: String): Int {
     var max = -1
-    val list = jumps.split(" ", "%", "-")
+    var list = jumps.split(" ", "%", "-")
+    list = list.filter { it != "" }
+    println(list)
     for (i in 0 until list.size) {
         if ((list[i].toIntOrNull() == null) && (list[i] != "+") && (list[i] != "")) return -1
+        if (i == list.size - 1) break
         if ((list[i].toIntOrNull() != null) && (list[i + 1] == "+")) max = list[i].toInt()
     }
     return max
