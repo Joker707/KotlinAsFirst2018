@@ -196,6 +196,7 @@ fun bisectorByPoints(a: Point, b: Point): Line {
     return Line(point, angel)
 }
 
+
 /**
  * Средняя
  *

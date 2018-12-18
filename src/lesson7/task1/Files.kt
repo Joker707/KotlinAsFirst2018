@@ -226,10 +226,12 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
                 max = text[i].length
         }
     }
+
     for (i in 0 until text.size) {
         if ((text[i].toLowerCase().toSet().size == max) && (text[i].toLowerCase().toSet().size == text[i].length))
             result.add(text[i])
     }
+
     output.write(result.joinToString(", "))
     output.close()
 }
