@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson8.task2
 
+import java.lang.IllegalArgumentException
+
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
  * Поэтому, обе координаты клетки (горизонталь row, вертикаль column) могут находиться в пределах от 1 до 8.
@@ -21,7 +23,10 @@ data class Square(val column: Int, val row: Int) {
      * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
      * Для клетки не в пределах доски вернуть пустую строку
      */
-    fun notation(): String = TODO()
+    fun notation(): String {
+        if ((column !in 1..8) || (row !in 1..8)) return ""
+        return (column + 96).toChar().toString() + row.toString()
+    }
 }
 
 /**
@@ -31,7 +36,11 @@ data class Square(val column: Int, val row: Int) {
  * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
  * Если нотация некорректна, бросить IllegalArgumentException
  */
-fun square(notation: String): Square = TODO()
+fun square(notation: String): Square {
+    val column = notation[0].toInt() - 96
+    val row = notation[1].toString().toInt()
+    return Square(column, row)
+}
 
 /**
  * Простая
@@ -56,7 +65,15 @@ fun square(notation: String): Square = TODO()
  * Пример: rookMoveNumber(Square(3, 1), Square(6, 3)) = 2
  * Ладья может пройти через клетку (3, 3) или через клетку (6, 1) к клетке (6, 3).
  */
-fun rookMoveNumber(start: Square, end: Square): Int = TODO()
+fun rookMoveNumber(start: Square, end: Square): Int {
+    if ((start.column !in 1..8) || (start.row !in 1..8) || (end.column !in 1..8) ||
+            (end.row !in 1..8)) throw IllegalArgumentException()
+    return when {
+        ((start.column == end.column) && (start.row == end.row)) -> 0
+        ((start.column == end.column) || (start.row == end.row)) -> 1
+        else -> 2
+    }
+}
 
 /**
  * Средняя
