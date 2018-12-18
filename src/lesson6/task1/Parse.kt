@@ -171,7 +171,7 @@ fun bestHighJump(jumps: String): Int {
     for (i in 0 until list.size) {
         if ((list[i].toIntOrNull() == null) && (list[i] != "+") && (list[i] != "")) return -1
         if (i == list.size - 1) break
-        if ((list[i].toIntOrNull() != null) && (list[i + 1] == "+")) max = list[i].toInt()
+        if ((list[i].toIntOrNull() != null) && (list[i + 1] == "+") && (list[i].toInt() > max)) max = list[i].toInt()
     }
     return max
 }
